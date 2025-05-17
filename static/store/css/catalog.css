@@ -1,0 +1,66 @@
+/* catalog.css */
+.filter-card {
+    position: sticky;
+    top: 1rem;
+    border: none;
+    border-radius: 12px;
+}
+
+.filter-group {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.filter-group:last-child {
+    border-bottom: none;
+}
+
+.product-card {
+    border: none;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.product-card img {
+    height: 200px;
+    object-fit: contain;
+    padding: 1rem;
+}
+
+.price-tag {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.badge-ribbon {
+    position: absolute;
+    top: 10px;
+    right: -30px;
+    background: var(--accent-color);
+    color: white;
+    padding: 0.25rem 2rem;
+    transform: rotate(45deg);
+    font-size: 0.8rem;
+    font-weight: 500;
+    z-index: 1;
+}
+
+.pagination .page-item .page-link {
+    border: none;
+    color: var(--dark-text);
+    margin: 0 0.25rem;
+    border-radius: 8px;
+}
+
+.pagination .page-item.active .page-link {
+    background: var(--primary-color);
+    color: white;
+}

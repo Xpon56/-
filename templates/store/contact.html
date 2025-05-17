@@ -1,0 +1,90 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'store/css/contact.css' %}">
+{% endblock %}
+{% block content %}
+<section class="container my-5">
+    <div class="row">
+        <div class="col-lg-6">
+            <h2 class="display-6 fw-bold mb-4">Контакты</h2>
+            
+            <div class="contact-info mb-5">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="fas fa-map-marker-alt me-3 fs-4 text-primary"></i>
+                    <div>
+                        <h5>Адрес</h5>
+                        <p class="text-muted mb-0">Москва, ул. Техническая, 15</p>
+                    </div>
+                </div>
+                
+                <div class="d-flex align-items-center mb-3">
+                    <i class="fas fa-phone me-3 fs-4 text-primary"></i>
+                    <div>
+                        <h5>Телефон</h5>
+                        <p class="text-muted mb-0">+7 (495) 123-45-67</p>
+                    </div>
+                </div>
+                
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-envelope me-3 fs-4 text-primary"></i>
+                    <div>
+                        <h5>Email</h5>
+                        <p class="text-muted mb-0">info@techhub.ru</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="map-container">
+                <iframe 
+                    src="https://yandex.ru/map-widget/v1/?um=constructor%3A4d3c5a4b0b5e5b0b5e5b0b5e5b0b5e5b0&amp;source=constructor" 
+                    width="100%" 
+                    height="400" 
+                    frameborder="0"
+                    style="border-radius: 12px;"
+                ></iframe>
+            </div>
+        </div>
+
+        <div class="col-lg-6 mt-5 mt-lg-0">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h3 class="card-title mb-4">Форма обратной связи</h3>
+                    
+                    {% if messages %}
+                    <div class="alert alert-success">
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            {{ form.name }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.email }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.subject }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.message }}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary-custom w-100">
+                            Отправить сообщение
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

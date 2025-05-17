@@ -1,0 +1,118 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="container my-5">
+    <div class="section-header">
+        <h2>Возврат товара</h2>
+        <p>Простая и понятная процедура возврата</p>
+    </div>
+
+    <div class="row g-4">
+        <!-- Основные условия -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="mb-4"><i class="fas fa-undo me-2 text-primary"></i>Условия возврата</h3>
+                    
+                    <div class="return-policy">
+                        <div class="alert alert-info mb-4">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Согласно закону «О защите прав потребителей» вы можете вернуть товар в течение 14 дней
+                        </div>
+
+                        <div class="mb-4">
+                            <h5>Товары надлежащего качества:</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    Не подошел размер/цвет/форма
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    Сохранен товарный вид
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    Нет следов эксплуатации
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5>Не подлежат возврату:</h5>
+                            <div class="alert alert-danger">
+                                <ul class="mb-0">
+                                    <li>Бытовая техника с установленным гарантийным сроком</li>
+                                    <li>Персонализированные товары</li>
+                                    <li>Средства личной гигиены</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Процедура возврата -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="mb-4"><i class="fas fa-list-ol me-2"></i>Как вернуть товар?</h4>
+                    <ol class="steps-list">
+                        <li class="mb-3">
+                            <i class="fas fa-box-open step-icon"></i>
+                            Упакуйте товар с сохранением всех ярлыков
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-file-alt step-icon"></i>
+                            Напишите заявление в личном кабинете
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-truck step-icon"></i>
+                            Отправьте посылку через наш курьерский сервис
+                        </li>
+                        <li>
+                            <i class="fas fa-wallet step-icon"></i>
+                            Получите деньги в течение 3 рабочих дней
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Документы -->
+    <div class="card shadow-sm mt-4">
+        <div class="card-body">
+            <h4 class="mb-4"><i class="fas fa-file-contract me-2"></i>Необходимые документы</h4>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="doc-card text-center">
+                        <div class="doc-icon bg-primary">
+                            <i class="fas fa-receipt"></i>
+                        </div>
+                        <p class="mb-0">Чек или платежное поручение</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="doc-card text-center">
+                        <div class="doc-icon bg-success">
+                            <i class="fas fa-passport"></i>
+                        </div>
+                        <p class="mb-0">Паспорт покупателя</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="doc-card text-center">
+                        <div class="doc-icon bg-warning">
+                            <i class="fas fa-file-signature"></i>
+                        </div>
+                        <p class="mb-0">Заполненное заявление</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

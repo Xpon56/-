@@ -1,0 +1,122 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="container my-5">
+    <div class="section-header">
+        <h2>Гарантийные обязательства</h2>
+        <p>Официальная гарантия на всю технику от 1 до 3 лет</p>
+    </div>
+
+    <div class="row g-4">
+        <!-- Основная информация -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="mb-4"><i class="fas fa-shield-alt me-2 text-primary"></i>Условия гарантии</h3>
+                    
+                    <div class="warranty-content">
+                        <div class="mb-4">
+                            <h5>Сроки действия:</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <i class="fas fa-calendar-check me-2"></i>
+                                    Бытовая техника - 2 года
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-calendar-check me-2"></i>
+                                    Электроника - 1 год
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-calendar-check me-2"></i>
+                                    Профессиональное оборудование - 3 года
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5>Гарантийные случаи:</h5>
+                            <div class="alert alert-success">
+                                <ul class="mb-0">
+                                    <li>Заводской брак</li>
+                                    <li>Неисправности комплектующих</li>
+                                    <li>Программные сбои</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5>Не покрывается гарантией:</h5>
+                            <div class="alert alert-danger">
+                                <ul class="mb-0">
+                                    <li>Механические повреждения</li>
+                                    <li>Попадание жидкости</li>
+                                    <li>Неправильная эксплуатация</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Боковая панель -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="mb-4"><i class="fas fa-question-circle me-2"></i>Как воспользоваться?</h4>
+                    <ol class="steps-list">
+                        <li class="mb-3">
+                            <i class="fas fa-file-alt step-icon"></i>
+                            Сохраните гарантийный талон
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-phone step-icon"></i>
+                            Позвоните в сервисный центр
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-tools step-icon"></i>
+                            Пройдите бесплатную диагностику
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle step-icon"></i>
+                            Получите ремонт или замену
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Сервисные центры -->
+    <div class="card shadow-sm mt-4">
+        <div class="card-body">
+            <h4 class="mb-4"><i class="fas fa-map-marker-alt me-2"></i>Наши сервисные центры</h4>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="service-center-card">
+                        <h5>Москва</h5>
+                        <p class="text-muted mb-1">
+                            <i class="fas fa-clock me-2"></i>Пн-Пт: 9:00-20:00
+                        </p>
+                        <p class="mb-0">
+                            <i class="fas fa-phone me-2"></i>+7 (495) 123-45-67
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="service-center-card">
+                        <h5>Санкт-Петербург</h5>
+                        <p class="text-muted mb-1">
+                            <i class="fas fa-clock me-2"></i>Пн-Пт: 10:00-19:00
+                        </p>
+                        <p class="mb-0">
+                            <i class="fas fa-phone me-2"></i>+7 (812) 987-65-43
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

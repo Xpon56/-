@@ -1,0 +1,26 @@
+<div class="card h-100">
+    <div class="position-relative">
+        <img src="{{ product.image.url }}" 
+             class="card-img-top product-image" 
+             alt="{{ product.name }}">
+        {% if product.discount %}
+        <div class="badge-ribbon">-{{ product.discount }}%</div>
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title mb-3">{{ product.name }}</h5>
+        
+        <!-- Добавлен блок с описанием -->
+        <p class="card-text text-muted mb-4">
+            {{ product.description|truncatechars:140 }}
+        </p>
+
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="price-tag">{{ product.price|floatformat:2 }} ₽</div>
+            <a href="{% url 'product_detail' product.slug %}" 
+               class="btn btn-primary-custom btn-sm">
+                Подробнее
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+/* Контакты */
+.contact-info {
+    background: var(--light-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.map-container {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form .form-control {
+    border: 2px solid var(--border-color);
+    transition: all 0.3s;
+    padding: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.contact-form .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: none;
+}
+
+.alert-success {
+    background: #e8f5e9;
+    border-color: #c8e6c9;
+    color: #2e7d32;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.contact-icon {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    min-width: 40px;
+}

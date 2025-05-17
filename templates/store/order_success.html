@@ -1,0 +1,41 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="container my-5">
+    <div class="text-center">
+        <!-- Иконка успеха -->
+        <div class="success-icon mb-4">
+            <i class="fas fa-check-circle fa-5x text-success"></i>
+        </div>
+
+        <!-- Заголовок -->
+        <h1 class="display-5 mb-3">Заказ успешно оформлен!</h1>
+
+        <!-- Номер заказа -->
+        {% if order %}
+        <p class="lead mb-4">
+            Номер вашего заказа: <span class="fw-bold">#{{ order.id }}</span>
+        </p>
+        {% endif %}
+
+        <!-- Информация -->
+        <div class="alert alert-success w-75 mx-auto">
+            <p class="mb-0">
+                Благодарим за покупку! Детали заказа и инструкции отправлены на ваш email.
+                Менеджер свяжется с вами в течение 15 минут.
+            </p>
+        </div>
+
+        <!-- Кнопки -->
+        <div class="mt-5">
+            <a href="{% url 'home' %}" class="btn btn-primary-custom btn-lg me-3">
+                <i class="fas fa-home me-2"></i>На главную
+            </a>
+            <a href="{% url 'catalog' %}" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-shopping-bag me-2"></i>Продолжить покупки
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

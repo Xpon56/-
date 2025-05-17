@@ -1,0 +1,98 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="container my-5">
+    <div class="section-header">
+        <h2>Частые вопросы</h2>
+        <p>Ответы на самые популярные вопросы клиентов</p>
+    </div>
+
+    <div class="row g-4">
+        <!-- Основной контент -->
+        <div class="col-lg-8">
+            <div class="accordion shadow-sm" id="faqAccordion">
+                <!-- Категория: Заказы -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#orders">
+                            <i class="fas fa-box-open me-2"></i>Заказы и доставка
+                        </button>
+                    </h3>
+                    <div id="orders" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <div class="faq-item">
+                                <h5>Как отследить заказ?</h5>
+                                <p>После отправки заказа вы получите трек-номер на email. Отслеживайте статус 
+                                в личном кабинете или через наш мобильный сервис.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h5>Можно ли изменить адрес доставки?</h5>
+                                <p>Да, если заказ еще не передан в службу доставки. Для изменений 
+                                напишите в поддержку через личный кабинет.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Категория: Оплата -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#payments">
+                            <i class="fas fa-credit-card me-2"></i>Оплата
+                        </button>
+                    </h3>
+                    <div id="payments" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <div class="faq-item">
+                                <h5>Какие способы оплаты доступны?</h5>
+                                <p>Мы принимаем: банковские карты, Apple/Google Pay, 
+                                электронные кошельки и наличные курьеру.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Категория: Гарантия -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#warranty">
+                            <i class="fas fa-shield-alt me-2"></i>Гарантия и возврат
+                        </button>
+                    </h3>
+                    <div id="warranty" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <div class="faq-item">
+                                <h5>Как вернуть товар?</h5>
+                                <p>Оформите возврат через личный кабинет в течение 14 дней. 
+                                Подробная инструкция в разделе <a href="{% url 'returns' %}">Возврат товара</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Боковая панель -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm support-card">
+                <div class="card-body">
+                    <h4 class="mb-4"><i class="fas fa-life-ring me-2"></i>Нужна помощь?</h4>
+                    <div class="support-options">
+                        <div class="option-item mb-3">
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:+74951234567" class="stretched-link">+7 (495) 123-45-67</a>
+                            <small>Пн-Пт 9:00-21:00</small>
+                        </div>
+                        <div class="option-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:support@techhub.ru" class="stretched-link">support@techhub.ru</a>
+                            <small>Ответ в течение 24 часов</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

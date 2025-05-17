@@ -1,0 +1,173 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% load param_replace %}
+
+{% block content %}
+<section class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h1 class="display-6"><i class="fas fa-heart me-2"></i>Все избранные товары</h1>
+        <a href="{% url 'profile' %}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Назад в профиль
+        </a>
+    </div>
+
+    <!-- Фильтры -->
+    <div class="row g-4">
+        <div class="col-lg-3">
+            <form method="get" action="{% url 'favorites_full' %}">
+                <div class="card shadow-sm filter-card">
+                    <div class="card-body">
+                        <h4 class="mb-4"><i class="fas fa-filter me-2"></i>Фильтры</h4>
+
+                        <!-- Категории -->
+                        <div class="filter-group mb-4">
+                            <h5>Категории</h5>
+                            <div class="list-group">
+                                {% for category in categories %}
+                                <label class="list-group-item">
+                                    <input type="checkbox" 
+                                           name="category" 
+                                           value="{{ category.id }}"
+                                           {% if category.id|slugify in request.GET.category %}checked{% endif %}>
+                                    {{ category.name }}
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Цена -->
+                        <div class="filter-group mb-4">
+                            <h5>Цена</h5>
+                            <div class="price-range">
+                                <input type="number" 
+                                       class="form-control mb-2" 
+                                       name="price_min" 
+                                       placeholder="От" 
+                                       value="{{ request.GET.price_min }}">
+                                <input type="number" 
+                                       class="form-control" 
+                                       name="price_max" 
+                                       placeholder="До" 
+                                       value="{{ request.GET.price_max }}">
+                            </div>
+                        </div>
+
+                        <!-- Бренды -->
+                        <div class="filter-group">
+                            <h5>Бренды</h5>
+                            <div class="list-group">
+                                {% for brand in brands %}
+                                <label class="list-group-item">
+                                    <input type="checkbox" 
+                                           name="brand" 
+                                           value="{{ brand.id }}"
+                                           {% if brand.id|slugify in request.GET.brand %}checked{% endif %}>
+                                    {{ brand.name }}
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Сортировка -->
+                        <div class="filter-group mt-4">
+                            <h5>Сортировка</h5>
+                            <select class="form-select" name="sort">
+                                <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>
+                                    По возрастанию цены
+                                </option>
+                                <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>
+                                    По убыванию цены
+                                </option>
+                                <option value="newest" {% if request.GET.sort == 'newest' %}selected{% endif %}>
+                                    Сначала новые
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <button type="submit" class="btn btn-primary w-100">Применить</button>
+                        <a href="{% url 'favorites_full' %}" class="btn btn-outline-secondary w-100 mt-2">Сбросить</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Товары -->
+        <div class="col-lg-9">
+            <div class="row g-4">
+                {% for product in page_obj %}
+                <div class="col-md-4 col-6">
+                    <div class="product-card card shadow-sm h-100">
+                        <!-- Кнопка удаления -->
+                        <div class="btn-favorite position-absolute top-0 end-0 m-2">
+                            <a href="{% url 'remove_from_favorites' product.id %}" 
+                               class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+
+                        <!-- Изображение -->
+                        <a href="{% url 'product_detail' product.slug %}">
+                            <img src="{{ product.image.url }}" 
+                                 class="card-img-top" 
+                                 alt="{{ product.name }}"
+                                 style="height: 200px; object-fit: contain; padding: 1rem;">
+                        </a>
+
+                        <!-- Информация о товаре -->
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    {% if product.discount %}
+                                    <span class="text-muted text-decoration-line-through me-2">
+                                        {{ product.original_price|floatformat:2 }} ₽
+                                    </span>
+                                    {% endif %}
+                                    <span class="price-tag">{{ product.price|floatformat:2 }} ₽</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center py-5">
+                    <i class="fas fa-heart-broken fa-3x text-muted"></i>
+                    <p class="lead text-muted">В избранном нет товаров</p>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Пагинация -->
+            {% if page_obj.has_other_pages %}
+            <nav class="mt-5">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" 
+                           href="?{% param_replace request page=page_obj.previous_page_number %}">
+                            &laquo;
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% for num in page_obj.paginator.page_range %}
+                    <li class="page-item {% if num == page_obj.number %}active{% endif %}">
+                        <a class="page-link" 
+                           href="?{% param_replace request page=num %}">{{ num }}</a>
+                    </li>
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" 
+                           href="?{% param_replace request page=page_obj.next_page_number %}">
+                            &raquo;
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

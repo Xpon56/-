@@ -1,0 +1,146 @@
+{% extends "admin/base_site.html" %}
+{% load static custom_filters %}
+
+{% block extrahead %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <!-- 1. Ключевые метрики -->
+    <div class="metric-grid">
+        <div class="metric-card">
+            <h3>Общая выручка</h3>
+            <div class="metric-value">{{ total_revenue|floatformat:0 }} ₽</div>
+        </div>
+        
+        <div class="metric-card">
+            <h3>Всего заказов</h3>
+            <div class="metric-value">{{ total_orders }}</div>
+        </div>
+
+        <div class="metric-card danger">
+            <h3>Отмены заказов</h3>
+            <div class="metric-value">
+                {{ order_stats.canceled_orders }} / {{ order_stats.total_orders }}
+                <small>({{ order_stats.canceled_orders|div:order_stats.total_orders|mul:100|floatformat:1 }}%)</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Графики -->
+    <div class="chart-row">
+        <div class="chart-container">
+            <h2>Распределение по категориям</h2>
+            <canvas id="categoryChart"></canvas>
+        </div>
+
+        <div class="chart-container">
+            <h2>Регистрации пользователей</h2>
+            <canvas id="usersChart"></canvas>
+        </div>
+    </div>
+
+    <!-- 3. Последние заказы -->
+    <div class="recent-orders">
+        <h2>Последние 10 заказов</h2>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Пользователь</th>
+                    <th>Сумма</th>
+                    <th>Статус</th>
+                    <th>Дата</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in recent_orders %}
+                <tr class="{% if order.status == 'canceled' %}canceled{% endif %}">
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.user.username|default:"Гость" }}</td>
+                    <td>{{ order.total|floatformat:2 }} ₽</td>
+                    <td>{{ order.get_status_display }}</td>
+                    <td>{{ order.created_at|date:"d.m.Y H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">Нет данных о заказах</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Скрытые поля для данных -->
+{{ category_sales|json_script:"category-data" }}
+{{ user_growth|json_script:"user-growth-data" }}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Круговой график продаж
+    const categoryCtx = document.getElementById('categoryChart');
+    if (categoryCtx) {
+        const categoryData = JSON.parse(document.getElementById('category-data').textContent);
+        const labels = categoryData.map(item => item.name);
+        const data = categoryData.map(item => item.total_sales || 0);
+
+        if (labels.length > 0 && data.some(v => v > 0)) {
+            new Chart(categoryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e']
+                    }]
+                }
+            });
+        } else {
+            categoryCtx.closest('.chart-container').innerHTML = '<p class="no-data">Нет данных о продажах</p>';
+        }
+    }
+
+    // Линейный график пользователей
+    const usersCtx = document.getElementById('usersChart');
+    if (usersCtx) {
+        const userData = JSON.parse(document.getElementById('user-growth-data').textContent);
+        const labels = userData.map(item => new Date(item.day).toLocaleDateString());
+        const data = userData.map(item => item.count);
+
+        if (labels.length > 0 && data.some(v => v > 0)) {
+            new Chart(usersCtx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Регистрации',
+                        data: data,
+                        borderColor: '#3a7bd5',
+                        tension: 0.4
+                    }]
+                }
+            });
+        } else {
+            usersCtx.closest('.chart-container').innerHTML = '<p class="no-data">Нет данных о регистрациях</p>';
+        }
+    }
+});
+</script>
+
+<style>
+.dashboard { padding: 20px; max-width: 1400px; margin: 0 auto; }
+.metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
+.metric-card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+.metric-card.danger { border-left: 4px solid #dc3545; }
+.chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 40px 0; }
+.styled-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+.styled-table th, .styled-table td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+.styled-table th { background: #f8f9fc; }
+.styled-table tr.canceled { background: #fff3f3; color: #dc3545; }
+canvas { max-height: 400px; margin: 20px 0; }
+.text-center { text-align: center; }
+.no-data { color: #6c757d; text-align: center; padding: 20px; font-style: italic; border: 1px dashed #ddd; }
+</style>
+{% endblock %}

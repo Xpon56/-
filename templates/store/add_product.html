@@ -1,0 +1,118 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">
+                        <i class="fas fa-cube me-2"></i>Добавление нового товара
+                    </h3>
+                </div>
+                
+                <div class="card-body">
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <h5>Ошибки в форме:</h5>
+                        <ul class="mb-0">
+                            {% for field, errors in form.errors.items %}
+                                {% for error in errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    <form method="post" enctype="multipart/form-data" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="row g-4">
+                            <!-- Основная информация -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Название товара *</label>
+                                    {{ form.name }}
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Категория *</label>
+                                    {{ form.category }}
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Бренд *</label>
+                                    {{ form.brand }}
+                                </div>
+                            </div>
+
+                            <!-- Цены и скидки -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Цена (₽) *</label>
+                                    {{ form.price }}
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Скидка (%)</label>
+                                    {{ form.discount }}
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">URL-адрес</label>
+                                    {{ form.slug }}
+                                </div>
+                            </div>
+
+                            <!-- Изображение -->
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Изображение товара *</label>
+                                    {{ form.image }}
+                                </div>
+                            </div>
+
+                            <!-- Описание -->
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Описание *</label>
+                                    {{ form.description }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-save me-2"></i>Сохранить товар
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('id_image').addEventListener('change', function(e) {
+    const preview = document.createElement('img');
+    preview.id = 'image-preview';
+    preview.style.maxWidth = '300px';
+    preview.style.marginTop = '15px';
+    
+    const reader = new FileReader();
+    reader.onload = function() {
+        preview.src = reader.result;
+        if (!document.getElementById('image-preview')) {
+            this.parentNode.appendChild(preview);
+        }
+    }.bind(this);
+    
+    if (e.target.files[0]) {
+        reader.readAsDataURL(e.target.files[0]);
+    }
+});
+</script>
+{% endblock %}

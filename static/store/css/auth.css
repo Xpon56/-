@@ -1,0 +1,31 @@
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 2rem 0;
+    background: var(--light-bg);
+}
+
+.auth-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.auth-card h2 {
+    color: var(--primary-color);
+}
+
+.form-check-label {
+    margin-left: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.invalid-feedback {
+    color: #dc3545;
+    font-size: 0.875em;
+}

@@ -1,0 +1,72 @@
+/* delivery.css */
+.delivery-section {
+    padding: 4rem 0;
+}
+
+.delivery-steps {
+    counter-reset: step;
+    margin: 3rem 0;
+}
+
+.delivery-step {
+    position: relative;
+    padding: 2rem;
+    background: var(--light-bg);
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.delivery-step::before {
+    counter-increment: step;
+    content: counter(step);
+    position: absolute;
+    left: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.payment-methods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.payment-card {
+    background: white;
+    padding: 1.5rem;
+    text-align: center;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    flex: 1;
+    min-width: 200px;
+    max-width: 250px;
+    transition: all 0.3s;
+}
+
+.payment-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.payment-card .card-title {
+    font-size: 1.1rem;
+    margin-bottom: 0;
+}
+
+.payment-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}

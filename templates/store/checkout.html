@@ -1,0 +1,90 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="container my-5">
+    <div class="row g-5">
+        <!-- Форма заказа -->
+        <div class="col-lg-8">
+            <h1 class="display-6 mb-4">Оформление заказа</h1>
+            
+            <form method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                
+                <!-- Контактные данные -->
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="mb-4"><i class="fas fa-user-circle me-2"></i>Контактная информация</h4>
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">ФИО</label>
+                                <input type="text" class="form-control" name="full_name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Телефон</label>
+                                <input type="tel" class="form-control" name="phone" 
+                                       pattern="7[0-9]{10}" 
+                                       placeholder="79991234567" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Адрес доставки -->
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="mb-4"><i class="fas fa-truck me-2"></i>Адрес доставки</h4>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Адрес</label>
+                            <textarea class="form-control" name="address" rows="3" required></textarea>
+                        </div>
+                        
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Город</label>
+                                <input type="text" class="form-control" name="city" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Индекс</label>
+                                <input type="text" class="form-control" name="postal_code" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary-custom btn-lg w-100">
+                    Подтвердить заказ
+                </button>
+            </form>
+        </div>
+
+        <!-- Корзина -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="mb-4"><i class="fas fa-receipt me-2"></i>Ваш заказ</h4>
+                    
+                    <div class="list-group mb-3">
+                        {% for item in cart_items %}
+                        <div class="list-group-item d-flex justify-content-between">
+                            <div>
+                                <h6 class="my-0">{{ item.product.name }}</h6>
+                                <small class="text-muted">x{{ item.quantity }}</small>
+                            </div>
+                            <span class="text-muted">{{ item.total_price|floatformat:2 }} ₽</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="d-flex justify-content-between fw-bold fs-5">
+                        <span>Итого:</span>
+                        <span>{{ total|floatformat:2 }} ₽</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

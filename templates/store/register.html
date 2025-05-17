@@ -1,0 +1,81 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'store/css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h2 class="text-center mb-4">Регистрация</h2>
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="invalid-feedback d-block">
+                        {{ form.username.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="invalid-feedback d-block">
+                        {{ form.email.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.phone.label_tag }}
+                {{ form.phone }}
+                <small class="form-text text-muted">Формат: +79999999999</small>
+                {% if form.phone.errors %}
+                    <div class="invalid-feedback d-block">
+                        {{ form.phone.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.password1.label_tag }}
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <div class="invalid-feedback d-block">
+                        {{ form.password1.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.password2.label_tag }}
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <div class="invalid-feedback d-block">
+                        {{ form.password2.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3 form-check">
+                {{ form.agreement }}
+                <label class="form-check-label" for="{{ form.agreement.id_for_label }}">
+                    {{ form.agreement.label }}
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary-custom w-100">Зарегистрироваться</button>
+        </form>
+        
+        <div class="text-center mt-3">
+            Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
